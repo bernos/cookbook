@@ -27,19 +27,40 @@ var Recipe = new mongoose.Schema({
 		default: Date.now
 	},
 
-	ingredients : [Ingredient]
+	trueOrFalse : Boolean,
+
+	buff : Buffer,
+
+	ingredients : [Ingredient],
+
+	comments: [{ body: String, date: Date }],
+
+	meta : {
+		votes:Number,
+		favs:Number
+	}
 });
 
 var RecipeModel = mongoose.model('Recipe', Recipe); 
 
-var adminModelConfig = new admin.AdminModelConfig(RecipeModel);
+var adminModelConfig = admin.modelConfig(RecipeModel, {
+	listFields : {
+		title : "TITLE",
+		createdAt : "Date created"
+	}
+});
+
+/*
 adminModelConfig.listFields = {
 	title : {
-		label: "Title"
+		label: "Title",
+		value: function(item) {
+			return "asdf" + item.title
+		}
 	},
 	createdAt : "Date Created"
 }
-
+*/
 admin.registerModel(RecipeModel, adminModelConfig);
 
 module.exports = RecipeModel;

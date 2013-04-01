@@ -1,15 +1,15 @@
-
-
 p Showing all models here
 
 table
-	tr
-		each label in fields
-			th #{label}
+  tr
+    each field in fields
+      th #{labelFor(field)}
+    th
 
 
-		each item in items
-			tr
-				each label, field in fields
-					td #{item[field]}
+    each item in items
+      tr
+        each field in fields
+          td #{valueFor(field, item)}
+        td: a(href="#{editUrlFor(item)}") Edit
 
