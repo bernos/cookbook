@@ -47,20 +47,13 @@ var adminModelConfig = admin.modelConfig(RecipeModel, {
 	listFields : {
 		title : "TITLE",
 		createdAt : "Date created"
-	}
+	},
+	excludedFields : [
+		'meta.votes',
+		'meta.favs'
+	]
 });
 
-/*
-adminModelConfig.listFields = {
-	title : {
-		label: "Title",
-		value: function(item) {
-			return "asdf" + item.title
-		}
-	},
-	createdAt : "Date Created"
-}
-*/
 admin.registerModel(RecipeModel, adminModelConfig);
 
 module.exports = RecipeModel;
