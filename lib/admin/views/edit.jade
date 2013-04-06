@@ -1,5 +1,14 @@
-=item.toString()
+extends layout
 
-each field in fields
-  div!= editorFor(field, item)
-  
+block content
+  =item.toString()
+
+  form(method="POST")
+
+    input(type="text", name="_id", value="#{item._id}")
+    input(type="text", name="_type", value="#{adminModelConfig.name}")
+
+
+    each field in fields
+      div!= editorFor(field, item)
+    input(type="submit")
