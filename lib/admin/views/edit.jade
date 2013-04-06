@@ -6,9 +6,9 @@ block content
   form(method="POST")
 
     input(type="text", name="_id", value="#{item._id}")
-    input(type="text", name="_type", value="#{adminModelConfig.name}")
+    input(type="text", name="_type", value="#{modelName}")
 
 
     each field in fields
-      div!= editorFor(field, item)
+      div!= field.editor(item)
     input(type="submit")

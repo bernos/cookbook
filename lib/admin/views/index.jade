@@ -3,13 +3,13 @@ p Showing all models here
 table
   tr
     each field in fields
-      th #{labelFor(field)}
+      th #{field.label()}
     th
 
 
     each item in items
       tr
         each field in fields
-          td #{valueFor(field, item)}
+          td #{field.value(item)}
         td: a(href="#{editUrlFor(item)}") Edit
 
