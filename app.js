@@ -10,9 +10,13 @@ var express = require('express')
   , path = require('path')
   , db = require('./lib/db')
   , resource = require('./lib/resource')
-  , admin = require('./lib/admin');
+  , admin = require('./lib/admin')
+  , sequelize = require('./mysql')
+  , settings = require('./settings');
 
 var app = express();
+
+sequelize(settings.db);
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
@@ -42,6 +46,9 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+for(var m in settings.modules) {
+  require('./modules/' + settings.modules[m]);
+}
 
 
 
@@ -49,6 +56,8 @@ app.get('/', routes.index);
 app.get('/users', user.list);
 app.post('/users/create', user.create);
 
+
+sequelize.sequelize.sync({force:true});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
