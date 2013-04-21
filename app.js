@@ -5,18 +5,15 @@
 
 var express = require('express')
   , routes = require('./routes')
-  , user = require('./routes/user')
   , http = require('http')
   , path = require('path')
   , db = require('./lib/db')
   , resource = require('./lib/resource')
   , admin = require('./lib/admin')
-  , sequelize = require('./mysql')
   , settings = require('./settings');
 
 var app = express();
 
-sequelize(settings.db);
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
@@ -34,30 +31,32 @@ app.configure(function(){
 
   app.use('/api/recipes', resource(require('./lib/recipes/models')));
 
+  for(var m in settings.modules) {
+    console.log("mounting at /"+settings.modules[m])
+   app.use("/" + settings.modules[m], require('./lib/' + settings.modules[m]).createApplication());
+  }
+
+/*
   app.use('/admin', admin({
     models : [
       require('./lib/recipes/models'),
-      require('./lib/user/models')
+      require('./lib/users/models')
     ]
-  }))
+  }))*/
 });
 
 app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-for(var m in settings.modules) {
-  require('./modules/' + settings.modules[m]);
-}
+
 
 
 
 app.get('/', routes.index);
-app.get('/users', user.list);
-app.post('/users/create', user.create);
 
 
-//sequelize.sequelize.sync({force:true});
+db.sequelize.sync({force:true});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
