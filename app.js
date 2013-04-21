@@ -32,12 +32,12 @@ app.configure(function(){
   app.use(require('less-middleware')({ src: __dirname + '/public' }));
   app.use(express.static(path.join(__dirname, 'public')));
 
-  app.use('/api/recipes', resource(require('./models/recipe')));
+  app.use('/api/recipes', resource(require('./lib/recipes/models')));
 
   app.use('/admin', admin({
     models : [
-      require('./models/recipe'),
-      require('./models/user')
+      require('./lib/recipes/models'),
+      require('./lib/user/models')
     ]
   }))
 });
@@ -57,7 +57,7 @@ app.get('/users', user.list);
 app.post('/users/create', user.create);
 
 
-sequelize.sequelize.sync({force:true});
+//sequelize.sequelize.sync({force:true});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
