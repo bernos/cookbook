@@ -13,7 +13,9 @@ module.exports = {
     }
   },
 
-  modules: [
-    'users'
-  ]
+  apps: {
+    './lib/user'    : '/user',
+    './lib/auth'    : '/',
+    './lib/recipes' : '/recipes'
+  }
 }

@@ -1,0 +1,7 @@
+extends ../../../views/layout
+
+block content
+  h1 hello
+  ul
+    each user in users
+      li= user.username

@@ -1,0 +1,20 @@
+extends ../../../views/layout
+
+block content
+  h1= recipe.name
+  p=recipe.summary
+  img(src="#{recipe.photo}")
+  ul
+    li Prep time: #{recipe.prepTime}
+    li Cooking time: #{recipe.cookTime}
+    li Servings: #{recipe.yield}
+
+  h2 ingredients
+  ul
+    each ingredient in recipe.ingredients
+      li= ingredient
+  h2 instructions
+  ul
+    each instruction in recipe.instructions
+      li= instruction
+  a(href=indexUrl) Back

@@ -1,0 +1,14 @@
+extends ../../../views/layout
+
+block content
+  p= message
+  form(action='/login', method='POST')
+    input(type='hidden', name='redir', value=redir)
+    p
+      label(for='username') Username:
+      input(type='text', name='username', id='username')
+    p
+      label(for='password') Password:
+      input(type='password', name='password', id='password')
+    p
+      input(type='submit')

@@ -1,0 +1,10 @@
+extends ../../../views/layout
+
+block content
+  h1 Recipes
+  ul
+    each recipe in recipes
+      li
+        a(href=recipeUrl(recipe.id))
+          | #{recipe.name}
+  a(href=addUrl) Add another
