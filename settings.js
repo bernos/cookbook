@@ -14,8 +14,8 @@ module.exports = {
   },
 
   apps: {
-    './lib/user'    : '/user',
     './lib/auth'    : '/',
+    './lib/user'    : '/user',
     './lib/recipes' : '/recipes'
   }
 }

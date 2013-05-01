@@ -1,0 +1,16 @@
+extends ../../../views/layout
+
+block content
+  h1 Register
+  div= message
+  form(method="POST")
+    div
+      label(for="username") Username
+      input(type="text", name="username", id="username", value=username)
+    div
+      label(for="password") Password
+      input(type="password", name="password", id="password")
+    div
+      label(for="confirm_password") Confirm password
+      input(type="password", name="confirm_password", id="confirm_password")
+    input(type="submit", value="register")
